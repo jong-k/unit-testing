@@ -1,23 +1,31 @@
 #include <iostream>
+#include <vector>
+#include <map>
+#include <set>
 
 using namespace std;
 
-void modify(int &value) {
-  value = 10;
-  // value의 메모리 주소 동일
-  cout << "주소 " << &value << endl; // 0x16f053658 (3)
-  cout << "값: " << value << endl; // 10 (4)
-  // 함수가 종료되면 value 변수는 메모리에서 사라짐
-}
 
 int main() {
-  int value = 5;
-  // value의 메모리 주소 동일
-  cout << "주소: " << &value << endl; // 0x16f053658 (1)
-  cout << "값: " << value << endl; // 5 (2)
-  modify(value);
-  // 원본 value가 변경됨
-  cout << "값: " << value << endl; // 10 (5)
+  vector<int> vec = {1, 2, 3, 4, 5};
+  for (int num: vec) {
+    cout << num << " "; // 1 2 3 4 5
+  }
+  cout << endl;
+
+  // map
+  map<string, int> fruitMap = {{"apple", 1}, {"banana", 2}, {"cherry", 3}};
+  for (const auto &pair: fruitMap) {
+    cout << pair.first << "=" << pair.second << " "; // apple=1 banana=2 cherry=3
+  }
+  cout << endl;
+
+  // set
+  set<string> fruitSet = {"apple", "banana", "cherry"};
+  cout << "Set: ";
+  for (const auto &fruit: fruitSet) {
+    cout << fruit << " "; // apple banana cherry
+  }
 
   return 0;
 }
