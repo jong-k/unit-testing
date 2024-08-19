@@ -1,20 +1,23 @@
 #include <iostream>
-#include <string>
 
 using namespace std;
 
+void modify(int &value) {
+  value = 10;
+  // value의 메모리 주소 동일
+  cout << "주소 " << &value << endl; // 0x16f053658 (3)
+  cout << "값: " << value << endl; // 10 (4)
+  // 함수가 종료되면 value 변수는 메모리에서 사라짐
+}
+
 int main() {
-  string str = "APPLE";
-
-  str += ", World";
-  cout << str << endl; // APPLE, World
-
-  str[7] = 'P';
-  cout << str << endl; // APPLE, Porld
-
-  // 원본 변경됨
-  str.replace(4, 4, "Col");
-  cout << str << endl; // APPLColorld
+  int value = 5;
+  // value의 메모리 주소 동일
+  cout << "주소: " << &value << endl; // 0x16f053658 (1)
+  cout << "값: " << value << endl; // 5 (2)
+  modify(value);
+  // 원본 value가 변경됨
+  cout << "값: " << value << endl; // 10 (5)
 
   return 0;
 }
