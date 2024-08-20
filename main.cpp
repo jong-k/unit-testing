@@ -1,31 +1,31 @@
 #include <iostream>
-#include <vector>
 #include <map>
-#include <set>
 
 using namespace std;
 
-
 int main() {
-  vector<int> vec = {1, 2, 3, 4, 5};
-  for (int num: vec) {
-    cout << num << " "; // 1 2 3 4 5
+  map<string, int> myMap = {{"apple", 1}, {"banana", 2}, {"cherry", 3}};
+  /* 아래 키-밸류 구조와 같음
+   * apple: 1
+   * banana: 2
+   * cherry: 3
+   */
+
+  // 순회 및 출력
+  for (auto &it: myMap) {
+    cout << it.first << ": " << it.second << endl;
   }
   cout << endl;
-
-  // map
-  map<string, int> fruitMap = {{"apple", 1}, {"banana", 2}, {"cherry", 3}};
-  for (const auto &pair: fruitMap) {
-    cout << pair.first << "=" << pair.second << " "; // apple=1 banana=2 cherry=3
+  for (auto it = myMap.begin(); it != myMap.end(); ++it) {
+    cout << it->first << ": " << it->second << endl;
   }
   cout << endl;
-
-  // set
-  set<string> fruitSet = {"apple", "banana", "cherry"};
-  cout << "Set: ";
-  for (const auto &fruit: fruitSet) {
-    cout << fruit << " "; // apple banana cherry
+  // 원소 탐색
+  auto result = myMap.find("banana");
+  if (result != myMap.end()) {
+    cout << "Found: " << result->first << " -> " << result->second << endl; // Found: banana -> 2
+  } else {
+    cout << "Not found" << endl;
   }
-
   return 0;
 }
