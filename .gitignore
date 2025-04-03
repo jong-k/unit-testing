@@ -1,64 +1,37 @@
-# Ignore build directories
-cmake-build-*/
-build/
+# Dependency directories
+node_modules/
 
-# Ignore CLion specific files
+# Yarn-specific files and directories
+.yarn/*
+!.yarn/cache
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+
+# Yarn lock file (should be committed)
+yarn.lock
+
+# Build files
+dist/
+out/
+*.tsbuildinfo
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# IDE-specific settings (optional)
+.vscode/
 .idea/
-*.iml
 
-# Ignore compiled object files
-*.o
-*.obj
-*.lo
-*.elf
-
-# Ignore compiled dynamic libraries
-*.so
-*.dylib
-*.dll
-
-# Ignore compiled static libraries
-*.a
-*.lib
-
-# Ignore executables
-*.exe
-*.out
-*.app
-
-# Ignore debug and release directories
-Debug/
-Release/
-debug/
-release/
-
-# Ignore CMake generated files
-CMakeFiles/
-CMakeCache.txt
-cmake_install.cmake
-CMakeScripts/
-Testing/
-Makefile
-CTestTestfile.cmake
-install_manifest.txt
-
-# Ignore code analysis tools generated files
-*.gcno
-*.gcda
-*.gcov
-
-# Ignore system-specific files
+# Miscellaneous
 .DS_Store
 Thumbs.db
-
-# Ignore log files
-*.log
-
-# Ignore backup files
-*~
-\#*\#
-.#*
-*.swp
-*.swo
-*.bak
-*.tmp
