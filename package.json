@@ -6,6 +6,7 @@
   "author": "jong-k <fully.charged07@gmail.com>",
   "license": "MIT",
   "devDependencies": {
-    "jest": "^29.7.0"
+    "jest": "^29.7.0",
+    "typescript": "^5.8.2"
   }
 }
