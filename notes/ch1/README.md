@@ -133,24 +133,84 @@ console.log(totalSoFar());
 -내가 작성한 코드가 아님
 
 ### 단위 테스트
+
 - 작업 단위를 호출하고, 그 작업 단위의 최종 결과로서 하나의 종료점을 테스트 검증 목표로 사용
 - 최종 결과가 테스트가 검증하고자 하는 바와 다르면 단위 테스트는 실패
 
 ## 5. 다른 종료점, 다른 기법
+
 - 각 종료점마다 테스트를 만들어 분리하는 것이 코드 관리 측면에서 유리
 - 종료점 종류에 따라 테스트 방법이 다름
 
 반환 값 있는 종료점
+
 - 작업 단위를 실행하여 진입점을 호출하고 실행 결과 값을 받아 그 값을 확인
 - 테스트가 비교적 용이
 
 상태 값을 변경하는 종료점
+
 - 테스트를 위해 함수를 2번 호출해야 할 수 있음
 - 약간 더 많은 작업 필요
 
 서드파티 함수를 호출하는 종료점
+
 - 모의 객체(mock object)를 만들어 테스트 결과를 임의로 조작하여 테스트
 - 가장 많은 작업 필요 (복잡성을 증가시키고 유지보수가 어려움)
 
 ## 1.6 처음부터 테스트 코드 작성
+
 테스트 코드 프레임워크 없이 직접 테스트 코드 작성 (number-parser.js의 sum 함수 테스트)
+
+테스트코드1 custom-test-phase1.js
+
+```js
+import { sum } from "./number-parser.js";
+
+const parserTest = () => {
+  try {
+    const result = sum("1,2"); // 실제 모듈(SUT)
+    if (result === 3) {
+      console.log("parserTest exapmle 1 PASSED");
+    } else {
+      throw new Error(`parserTest: expected 3 but was ${result}`);
+    }
+  } catch (e) {
+    console.error(e.stack);
+  }
+};
+
+parserTest();
+```
+
+테스트코드2 custom-test-phase2.js
+
+```js
+import { sum } from "./number-parser.js";
+// 값 비교를 위한 헬퍼 함수
+const assertEquals = (expected, actual) => {
+  if (actual !== expected) {
+    throw new Error(`Expected ${expected} but was ${actual}`);
+  }
+};
+// 보다 범용적인 검증 함수
+const check = (name, implementation) => {
+  try {
+    implementation();
+    console.log(`${name} PASSED`);
+  } catch (e) {
+    console.error(`${name} FAILED: ${e.stack}`);
+  }
+};
+
+check("sum with 2 numbers should sum them up", () => {
+  const result = sum("1,2");
+  assertEquals(3, result);
+});
+
+check("sum with 2 numbers should sum them up", () => {
+  const result = sum("10,20");
+  assertEquals(20, result); // 30 대신 20을 넣어 일부러 실패
+});
+```
+
+- 헬퍼함수와 범용적인 검증 함수를 사용하여 재사용성 강화
