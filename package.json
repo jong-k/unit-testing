@@ -5,6 +5,9 @@
   "repository": "https://github.com/jong-k/unit-testing.git",
   "author": "jong-k <fully.charged07@gmail.com>",
   "license": "MIT",
+  "scripts": {
+    "test": "jest"
+  },
   "devDependencies": {
     "jest": "^29.7.0",
     "typescript": "^5.8.2"
