@@ -117,3 +117,61 @@ test("verifyPassword, given a failing rule, returns errors", () => {
   expect(errors[0]).toContain("fake reason");
 });
 ```
+
+### 문자열 비교와 유지보수성
+
+- toMatch, toContain 메서드를 사용해서 핵심 의미의 문자열이 있는지 정도만 검사하는게 좋다 (완전 일치 검사 대신)
+- 문장에서 마침표가 새로 추가된 정도의 변경은 테스트 결과에 영향을 미치면 안됨
+- 테스트 코드는 동일한 비즈니스 로직에서 항상 같은 결과를 보장해야 하기에 테스트의 안정성을 높이는 것을 우선시 해야함
+
+### describe 함수로 테스트 그룹화
+
+describe 사용의 장점
+
+- USE 전략의 3가지 내용을 분리하여 가독성 향상 => 각 구역을 명확하게 구분 가능
+
+```ts
+// ch2
+import { verifyPassword } from "../notes/ch2/password-verifier0";
+import { Rule } from "../notes/ch2/types";
+
+// describe 블록은 테스트 그룹을 만들어줌
+describe("verifyPassword", () => {
+  test("given a failing rule, returns errors", () => {
+    // 준비
+    const fakeRule = (input: string): Rule => ({
+      passed: false,
+      reason: input, // input 값 사용
+    });
+    // 실행
+    const errors = verifyPassword("any value", [fakeRule]);
+    // 검증
+    expect(errors[0]).toContain("fake reason");
+  });
+});
+```
+
+describe를 중첩으로 USE의 각 메시지를 더 명확하게 표현
+
+```ts
+// ch2
+import { verifyPassword } from "../notes/ch2/password-verifier0";
+import { Rule } from "../notes/ch2/types";
+
+// describe 블록을 한번 더 중첩하여 USE 전략의 3가지 내용을 명확하게 구분
+describe("verifyPassword", () => {
+  describe("given a failing rule", () => {
+    test("returns errors", () => {
+      // 준비
+      const fakeRule = (input: string): Rule => ({
+        passed: false,
+        reason: input, // input 값 사용
+      });
+      // 실행
+      const errors = verifyPassword("any value", [fakeRule]);
+      // 검증
+      expect(errors[0]).toContain("fake reason");
+    });
+  });
+});
+```
