@@ -73,3 +73,47 @@ test("badly named test", () => {
   expect(errors[0]).toMatch("fake reason");
 });
 ```
+
+### USE 전략
+
+테스트 코드 이름을 지을 때 참고할 사항
+
+- 테스트 하려는 대상(Unit: 지금은 verifyPassword() 함수)
+- 입력값이나 상황에 대한 설명(Scenario: 결과로 false를 반환하는 상황)
+- 기댓값이나 결과에 대한 설명(Expectation: 에러 메시지를 반환)
+
+USE 전략을 활용해서 password-verifier0.spec.ts 리팩토링
+
+- before
+
+```ts
+import { verifyPassword } from "../notes/ch2/password-verifier0";
+import { Rule } from "../notes/ch2/types";
+
+test("badly named test", () => {
+  const fakeRule = (input: string): Rule => ({
+    passed: false,
+    reason: "fake reason",
+  });
+
+  const errors = verifyPassword("any value", [fakeRule]);
+  expect(errors[0]).toMatch("fake reason");
+});
+```
+
+- after(test 제목 수정)
+
+```ts
+import { verifyPassword } from "../notes/ch2/password-verifier0";
+import { Rule } from "../notes/ch2/types";
+// unit, scenario, expectation 순으로 테스트 이름 기재
+test("verifyPassword, given a failing rule, returns errors", () => {
+  const fakeRule = (input: string): Rule => ({
+    passed: false,
+    reason: "fake reason",
+  });
+
+  const errors = verifyPassword("any value", [fakeRule]);
+  expect(errors[0]).toContain("fake reason");
+});
+```
