@@ -127,7 +127,7 @@ test("verifyPassword, given a failing rule, returns errors", () => {
 ### describe 함수로 테스트 그룹화
 
 describe 사용의 장점
-
+- 계층 구조 => test() 혹은 it() 만 사용하는 것 보다 구조적임
 - USE 전략의 3가지 내용을 분리하여 가독성 향상 => 각 구역을 명확하게 구분 가능
 
 ```ts
@@ -175,3 +175,43 @@ describe("verifyPassword", () => {
   });
 });
 ```
+
+### it 함수
+
+> it()은 test()의 별칭이며, describe 방식과 영어 문법적으로 더 잘 어울린다
+
+test() 를 it() 으로 변경하는 예시
+
+```ts
+// ch2
+import { verifyPassword } from "../notes/ch2/password-verifier0";
+import { Rule } from "../notes/ch2/types";
+
+describe("verifyPassword", () => {
+  describe("given a failing rule", () => {
+    // it returns errors 처럼 읽혀서 자연스럽다 (test 대신 it 사용)
+    it("returns errors", () => {
+      const fakeRule = (input: string): Rule => ({
+        passed: false,
+        reason: input,
+      });
+      const errors = verifyPassword("any value", [fakeRule]);
+      expect(errors[0]).toContain("fake reason");
+    });
+  });
+});
+```
+
+### 2가지 Jest 스타일
+test() or it() 만 사용
+- 간단한 테스트를 간결하게 표현하는 스타일
+
+describe() 중첩 구문 사용
+- Jest 보다 원조 격인 자스민 테스팅 프레임워크의 영향을 받아 훨씬 오래전 부터 써 오던 스타일
+- BDD 에서 사용하던 스타일
+
+BDD(Behavior Driven Development)
+- 스토리와 예제를 사용하여 애플리케이션이 어떻게 동작하는지 설명하는 방법
+- 비개발직군과의 협업을 목표로 함
+
+### verifyPassword() 함수 리팩터링

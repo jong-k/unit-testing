@@ -1,4 +1,4 @@
-import { Rule, RuleFunction } from "./types";
+import { RuleFunction } from "./types";
 
 export const verifyPassword = (input: string, rules: RuleFunction[]) => {
   const errors: string[] = [];
