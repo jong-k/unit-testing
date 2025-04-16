@@ -1,6 +1,5 @@
-// ch2
-import { PasswordVerifier1 } from "../notes/ch2/password-verifier1";
-import { Rule } from "../notes/ch2/types";
+import { PasswordVerifier1 } from "../../notes/ch2/password-verifier1";
+import { Rule } from "../../notes/ch2/types";
 
 describe("PasswordVerifier", () => {
   describe("with a failing rule", () => {
@@ -11,7 +10,7 @@ describe("PasswordVerifier", () => {
         reason: input,
       });
       verifier.addRule(fakeRule);
-      const errors = verifier.verify("any value");
+      const errors = verifier.verify("fake reason");
       expect(errors[0]).toContain("fake reason");
     });
   });

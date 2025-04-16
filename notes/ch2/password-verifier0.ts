@@ -4,7 +4,7 @@ export const verifyPassword = (input: string, rules: RuleFunction[]) => {
   const errors: string[] = [];
   rules.forEach((rule) => {
     const result = rule(input);
-    if (!result.passed) errors.push(`error ${result.reason}`);
+    if (!result.passed) errors.push(result.reason);
   });
   return errors;
 };

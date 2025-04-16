@@ -15,7 +15,7 @@ export class PasswordVerifier1 {
     const errors: string[] = [];
     this.rules.forEach((rule) => {
       const result = rule(input);
-      if (!result.passed) errors.push(`error ${result.reason}`);
+      if (!result.passed) errors.push(result.reason);
     });
     return errors;
   }
