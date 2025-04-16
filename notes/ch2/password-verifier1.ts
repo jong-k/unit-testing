@@ -1,6 +1,6 @@
 import { RuleFunction } from "./types";
 
-class PasswordVerifier1 {
+export class PasswordVerifier1 {
   private rules: RuleFunction[];
 
   constructor() {
